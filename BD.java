@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class leitor {
-    public String[] listaPalavras;
-    public leitor(String path){
+public class BD {
+    static String[] listaPalavras;
+    public BD(String path){
         List <String> linhas = new ArrayList<>(); //criando o String[] de forma genérica para usar as funcionalidades de util.List
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String linha;
@@ -15,6 +15,6 @@ public class leitor {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
         }
         // Convertendo o ArrayList (de tipo genérico) para um array de Strings efetivamente para auxiliar em manipulações futuras
-        this.listaPalavras = linhas.toArray(new String[0]);
+        listaPalavras = linhas.toArray(new String[0]);
     }
 }
