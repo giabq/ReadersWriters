@@ -31,6 +31,6 @@ public class reader extends Thread {
                 System.err.println("Erro: listaPalavras não foi inicializada.");
             }
         }
-        //POE P SLEEP
+        //POE P SLEEP?
     }
 }

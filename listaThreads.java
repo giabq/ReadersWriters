@@ -14,4 +14,5 @@ public class listaThreads {
         }
         Collections.shuffle(threads); //embaralhando os objetos instanciados
     }
+    //método que gerencia a execução sequencial das threads?
 }
