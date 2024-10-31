@@ -10,11 +10,13 @@ public class writer extends Thread {
         int posicao;
         for (int i = 0; i < 100; i++) {
             // gera um índice aleatório entre 0 e tamanho da base - 1 (esse indice será aquele a ser acessado)
-            posicao = random.nextInt(leitor.listaPalavras.length);
+            posicao = random.nextInt(BD.listaPalavras.length);
             try {
-                leitor.listaPalavras[posicao] = "MODIFICADO";
-            } catch (InterruptedException e) {
-                //nao sei ainda como lidar com o catch....
+                BD.listaPalavras[posicao] = "MODIFICADO";
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("Erro: índice fora dos limites do array.");
+            } catch (NullPointerException e) {
+                System.err.println("Erro: listaPalavras não foi inicializada.");
             }
         }
         //POE P SLEEP

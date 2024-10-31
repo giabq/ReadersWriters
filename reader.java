@@ -17,16 +17,18 @@ public class reader extends Thread {
         int posicao;
         for (int i = 0; i < 100; i++) {
             // gera um índice aleatório entre 0 e tamanho da base - 1 (esse indice será aquele a ser acessado)
-            posicao = random.nextInt(leitor.listaPalavras.length);
+            posicao = random.nextInt(BD.listaPalavras.length);
             try {
                 while(indicesLidos.contains(posicao)){
-                    posicao = random.nextInt(leitor.listaPalavras.length); //reescolhendo uma posição para os casos em que o indice já foi acessado em uma das 100 iterações
+                    posicao = random.nextInt(BD.listaPalavras.length); //reescolhendo uma posição para os casos em que o indice já foi acessado em uma das 100 iterações
                 }
-                palavra = leitor.listaPalavras[posicao];
+                palavra = BD.listaPalavras[posicao];
                 indicesLidos.add(posicao);
 
-            } catch (InterruptedException e) {
-                //ainda nao sei lidar com catches....
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("Erro: índice fora dos limites do array.");
+            } catch (NullPointerException e) {
+                System.err.println("Erro: listaPalavras não foi inicializada.");
             }
         }
         //POE P SLEEP

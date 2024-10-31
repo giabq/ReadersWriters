@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class leitor {
+public class BD {
     static String[] listaPalavras;
-    public leitor(String path){
+    public BD(String path){
         List <String> linhas = new ArrayList<>(); //criando o String[] de forma genérica para usar as funcionalidades de util.List
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String linha;
