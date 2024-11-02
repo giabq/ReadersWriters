@@ -15,5 +15,24 @@ public class listaThreads {
         }
         Collections.shuffle(threads); //embaralhando os objetos instanciados
     }
-    //método que gerencia a execução sequencial das threads?
+    //método que gerencia a execução sequencial das threads
+    public long executarThreads() {
+        long startTime = System.currentTimeMillis(); // marca o início do tempo
+
+        // inicia todas as threads (em paralelo)
+        for(Thread thread: threads){
+            thread.start();
+        }
+
+        // aguarda todas as threads terminarem
+        for(Thread thread: threads){
+            try{
+                thread.join(); // isso faz com que o programa aguarda a conclusão de cada thread antes de continuar
+            } catch(Exception e){
+                Thread.currentThread().interrupt();
+            }
+        }
+         long endTime = System.currentTimeMillis(); // marca o fim do tempo
+         return endTime - startTime; // retorna o tempo total de execução
+    }
 }

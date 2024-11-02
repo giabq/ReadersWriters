@@ -4,6 +4,9 @@ import java.util.List;
 
 public class BD {
     static String[] listaPalavras;
+    // Vamos adicionar uma instância do leitoresEscritoresControlador para que reader e writer possam acessar a base de dados
+    static leitoresEscritoresControlador controlador = new leitoresEscritoresControlador();
+
     public BD(String path){
         List <String> linhas = new ArrayList<>(); //criando o String[] de forma genérica para usar as funcionalidades de util.List
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {

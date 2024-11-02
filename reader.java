@@ -3,34 +3,33 @@ import java.util.Set;
 import java.util.Random;
 
 public class reader extends Thread {
-    private String palavra; //string utilizada para armazenamento momentâneo da palavra lida
-    private Random random; //para auxiliar nos acessos à posições aleatórias enquanto a thread estiver rodando
-    private Set <Integer> indicesLidos; // Para rastrear quais índices já foram lidos, como o enunciado dita --> usando set essa checagem fica mais rápida
+    private String palavra;
+    private Random random;
+    private Set<Integer> indicesLidos;
 
-    public reader(){
+    public reader() {
         this.random = new Random();
         this.indicesLidos = new HashSet<>();
     }
 
     @Override
     public void run() {
-        int posicao;
-        for (int i = 0; i < 100; i++) {
-            // gera um índice aleatório entre 0 e tamanho da base - 1 (esse indice será aquele a ser acessado)
-            posicao = random.nextInt(BD.listaPalavras.length);
-            try {
-                while(indicesLidos.contains(posicao)){
-                    posicao = random.nextInt(BD.listaPalavras.length); //reescolhendo uma posição para os casos em que o indice já foi acessado em uma das 100 iterações
+        BD.controlador.entrarLeitura(); // entra na região crítica para leitura
+        try {
+            for (int i = 0; i < 100; i++) {
+                int posicao = random.nextInt(BD.listaPalavras.length);
+                while (indicesLidos.contains(posicao)) {
+                    posicao = random.nextInt(BD.listaPalavras.length);
                 }
                 palavra = BD.listaPalavras[posicao];
                 indicesLidos.add(posicao);
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.err.println("Erro: índice fora dos limites do array.");
-            } catch (NullPointerException e) {
-                System.err.println("Erro: listaPalavras não foi inicializada.");
             }
+            // dorme por 1ms após as 100 operações de leitura
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            BD.controlador.sairLeitura(); // sai da região crítica
         }
-        //POE P SLEEP?
     }
 }
