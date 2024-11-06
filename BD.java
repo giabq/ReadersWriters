@@ -5,9 +5,9 @@ import java.util.List;
 public class BD {
     static String[] listaPalavras;
     // Vamos adicionar uma instância do leitoresEscritoresControlador para que reader e writer possam acessar a base de dados
-    static leitoresEscritoresControlador controlador = new leitoresEscritoresControlador();
+    static controller controlador;
 
-    public BD(String path){
+    public BD(String path, int controllerType){
         List <String> linhas = new ArrayList<>(); //criando o String[] de forma genérica para usar as funcionalidades de util.List
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String linha;
@@ -19,5 +19,11 @@ public class BD {
         }
         // Convertendo o ArrayList (de tipo genérico) para um array de Strings efetivamente para auxiliar em manipulações futuras
         listaPalavras = linhas.toArray(new String[0]);
+
+        if(controllerType == 1){
+            controlador = new leitoresEscritoresController();
+        } else if(controllerType == 0){
+            controlador = new fullBlockController();
+        }
     }
 }

@@ -1,6 +1,6 @@
 // Solução baseada nos códigos disponíveis em: https://stackoverflow.com/questions/6531163/the-readers-writers-problem-priority
 
-public class leitoresEscritoresControlador {
+public class leitoresEscritoresController extends controller {
     private int leitoresAtivos = 0; // contador de leitores ativos
     private boolean escritorAtivo = false; // indica se existe algum escritor ativo
 
